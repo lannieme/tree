@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import string
-import subprocess
 import sys
 import os
 from os import walk as walk
