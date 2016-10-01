@@ -9,7 +9,7 @@ from os.path import basename, isdir
 
 def printDir(path, padding, isLast):
     if isLast:
-        padding = padding + '   '
+        padding = padding + '    '
         tree(path, padding, isLast=False)
     else:
         padding = padding + '│   '
@@ -33,7 +33,7 @@ def tree(dir, padding, isLast=False):
             print(padding + '├── ' + file)
             if isdir(path):
                 printDir(path, padding, isLast)
-    padding = padding + '   '
+    padding = padding + '    '
 
 
 # function to track number of directories and files in given path
@@ -48,7 +48,6 @@ def fileTrack(path):
     print("%s directories, %s files" % (num_dir, num_file))
 
 if __name__ == '__main__':
-# if given no path
     if len(sys.argv) == 1:
         print('.')
         path = os.getcwd()
