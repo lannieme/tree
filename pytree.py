@@ -18,19 +18,20 @@ def printDir(path, padding, isLast):
 
 def tree(dir, padding, isLast=False):
     files = []
-    files = listdir(dir)
-    files = sorted(files)
+# Reference: http://stackoverflow.com/questions/7099290/how-to-ignore-hidden-files-using-os-listdir
+    files = [files for files in listdir(dir) if not files.startswith('.')]
+    allfiles = sorted(files, key=lambda files: files.lower())
 
-    for i, file in enumerate(files):
-        path = dir + sep + file
+    for i, filename in enumerate(allfiles):
+        path = dir + sep + filename
         if (i == len(files) - 1):
             isLast = True
-            print(padding + '└── ' + file)
+            print(padding + '└── ' + filename)
             if isdir(path):
                 printDir(path, padding, isLast)
         else:
             isLast = False
-            print(padding + '├── ' + file)
+            print(padding + '├── ' + filename)
             if isdir(path):
                 printDir(path, padding, isLast)
     padding = padding + '    '
@@ -42,7 +43,9 @@ def fileTrack(path):
     num_file = 0
 
     for path, dirs, files in walk(path):
-        # keep track of total directory & files in given path
+        # Reference: http://stackoverflow.com/questions/13454164/os-walk-without-hidden-folders
+        files = [f for f in files if not f[0] == '.']
+        dirs[:] = [d for d in dirs if not d[0] == '.']
         num_dir = num_dir + len(dirs)
         num_file = num_file + len(files)
     print("%s directories, %s files" % (num_dir, num_file))
