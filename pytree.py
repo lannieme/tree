@@ -13,7 +13,7 @@ def printDir(path, padding, isLast):
         padding = padding + '    '
         tree(path, padding, isLast=False)
     else:
-        padding = padding + '|   '
+        padding = padding + '│   '
         tree(path, padding, isLast=False)
 
 
