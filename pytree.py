@@ -25,33 +25,14 @@ def tree(dir, padding, isLast=False):
         path = dir + sep + file
         if (i == len(files) - 1):
             isLast = True
+            print(padding + '└── ' + file)
             if isdir(path):
-            	print(padding + '└── ' + file)
-            	printDir(path, padding, isLast)
-            else:
-            	print(padding + '└── ' + file)
+                printDir(path, padding, isLast)
         else:
             isLast = False
+            print(padding + '├── ' + file)
             if isdir(path):
-            	print(padding + '├── ' + file)
                 printDir(path, padding, isLast)
-            else:
-            	print(padding + '├── ' + file)
-# # Printing directory
-#         if isdir(path):
-#             if isLast:
-#                 print(padding + '└── ' + file)
-# # printing contents within directory
-#                 printDir(path, padding, isLast)
-#             else:
-#                 print(padding + '├── ' + file)
-#                 printDir(path, padding, isLast)
-# # print non-directory files
-#         else:
-#             if isLast:
-#                 print(padding + '└── ' + file)
-#             else:
-#                 print(padding + '├── ' + file)
     padding = padding + '   '
 
 
@@ -67,7 +48,7 @@ def fileTrack(path):
     print("%s directories, %s files" % (num_dir, num_file))
 
 if __name__ == '__main__':
-	# if given no path
+# if given no path
     if len(sys.argv) == 1:
         print('.')
         path = os.getcwd()
