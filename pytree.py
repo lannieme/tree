@@ -15,7 +15,7 @@ def printDir(path, padding, isLast):
             tree(path, padding, isLast=False)
         else:
             padding = padding + '│   '
-            tree(path, padding, isLast=False)        
+            tree(path, padding, isLast=False)
 
 
 def tree(dir, padding, isLast=False):
@@ -39,14 +39,25 @@ def tree(dir, padding, isLast=False):
 # function to track number of directories and files in given path
 def fileTrack(path):
     num_dir = 0
-    num_file = 0
+    num_files = 0
     for path, dirs, files in walk(path):
         # Reference: http://stackoverflow.com/questions/13454164/os-walk-without-hidden-folders
-        files = [f for f in files if not f.startswith('.')]
+#         files = [f for f in files if not f.startswith('.')]
         dirs[:] = [d for d in dirs if not d.startswith('.')]
         num_dir = num_dir + len(dirs)
-        num_file = num_file + len(files)
-    print("%s directories, %s files" % (num_dir, num_file))
+        num_file = count_file(files,num_files)
+        num_files += num_file
+    print("%s directories, %s files" % (num_dir, num_files))
+
+
+def count_file(files,num_file):
+    total_file = []
+    for f in files:
+        if not f.startswith('.'):
+            total_file.append(f)
+    num_file = len(total_file)
+    return num_file
+
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
