@@ -9,12 +9,14 @@ from os.path import basename, isdir
 
 
 def printDir(path, padding, isLast):
-    if isLast:
-        padding = padding + '    '
-        tree(path, padding, isLast=False)
-    else:
-        padding = padding + '│   '
-        tree(path, padding, isLast=False)
+    if isdir(path):
+        if isLast:
+            padding = padding + '    '
+            tree(path, padding, isLast=False)
+        else:
+            padding = padding + '│   '
+            tree(path, padding, isLast=False)
+        
 
 
 def tree(dir, padding, isLast=False):
@@ -29,13 +31,10 @@ def tree(dir, padding, isLast=False):
         if (i == len(files) - 1):
             isLast = True
             print(padding + '└── ' + filename)
-            if isdir(path):
-                printDir(path, padding, isLast)
         else:
             isLast = False
             print(padding + '├── ' + filename)
-            if isdir(path):
-                printDir(path, padding, isLast)
+        printDir(path, padding, isLast)
     padding = padding + '    '
 
 
@@ -46,7 +45,7 @@ def fileTrack(path):
 
     for path, dirs, files in walk(path):
         # Reference: http://stackoverflow.com/questions/13454164/os-walk-without-hidden-folders
-        files = [f for f in files if not f[0] == '.']
+        files = [f for f in files if not f.startswith('.')]
         dirs[:] = [d for d in dirs if not d[0] == '.']
         num_dir = num_dir + len(dirs)
         num_file = num_file + len(files)
