@@ -42,15 +42,15 @@ def fileTrack(path):
     num_files = 0
     for path, dirs, files in walk(path):
         # Reference: http://stackoverflow.com/questions/13454164/os-walk-without-hidden-folders
-#         files = [f for f in files if not f.startswith('.')]
         dirs[:] = [d for d in dirs if not d.startswith('.')]
         num_dir = num_dir + len(dirs)
-        num_file = count_file(files,num_files)
+        num_file = count_file(files, num_files)
         num_files += num_file
     print("%s directories, %s files" % (num_dir, num_files))
 
 
-def count_file(files,num_file):
+# function to fix complexity issue by codeclimate
+def count_file(files, num_file):
     total_file = []
     for f in files:
         if not f.startswith('.'):
