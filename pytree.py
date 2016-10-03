@@ -23,7 +23,8 @@ def tree(dir, padding, isLast=False):
 # Reference: http://stackoverflow.com/questions/7099290/how-to-ignore-hidden-files-using-os-listdir
     files = [files for files in listdir(dir) if not files.startswith('.')]
 # Reference: http://stackoverflow.com/questions/13589560/how-to-sort-list-of-string-without-considering-special-characters-and-with-case
-    allfiles = sorted(files, key=lambda x: re.sub('[^A-Za-z]+', '', x).lower())
+# allfiles = sorted(files, key=lambda x: re.sub('[^A-Za-z]+', '', x).lower())
+    allfiles = sorted(files, key=lambda x: x.lower())
     for i, filename in enumerate(allfiles):
         path = dir + sep + filename
         if (i == len(files) - 1):
